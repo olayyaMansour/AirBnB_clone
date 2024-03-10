@@ -6,6 +6,7 @@ Test for creating BaseModel from dictionary
 import unittest
 from models.base_model import BaseModel
 
+
 class TestBaseModelDict(unittest.TestCase):
     def test_create_from_dict(self):
         my_model = BaseModel()
@@ -22,6 +23,7 @@ class TestBaseModelDict(unittest.TestCase):
         self.assertEqual(my_model.my_number, new_model.my_number)
         self.assertEqual(my_model.created_at, new_model.created_at)
         self.assertEqual(my_model.updated_at, new_model.updated_at)
+
 
 if __name__ == '__main__':
     unittest.main()

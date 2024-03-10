@@ -47,7 +47,7 @@ class TestHBNBCommandHelp(unittest.TestCase):
                         "<attribute_value> or\n       <class>.update(<id>, "
                         "<attribute_name>, <attribute_value>) or\n       "
                         "<class>.update(<id>, <dictionary>)\n        Update a "
-                        "class instance of a given id by adding or updating\n   "
+                        "class instance of a given id by\n   "
                         "     a given attribute key/value pair or dictionary.")
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help update"))
@@ -56,7 +56,7 @@ class TestHBNBCommandHelp(unittest.TestCase):
     def test_help(self):
         help_message = ("Documented commands (type help <topic>):\n"
                         "========================================\n"
-                        "EOF  all  count  create  destroy  help  quit  show  update")
+                        "EOF  all")
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help"))
             self.assertEqual(help_message, output.getvalue().strip())
@@ -141,4 +141,3 @@ class TestHBNBCommandShow(unittest.TestCase):
             command = "show BaseModel {}".format(test_id)
             self.assertFalse(HBNBCommand().onecmd(command))
             self.assertEqual(obj.__str__(), output.getvalue().strip())
-

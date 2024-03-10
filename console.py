@@ -5,9 +5,10 @@ import cmd
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
 
+
 class HBNBCommand(cmd.Cmd):
     """Command Interpreter class."""
-    
+
     prompt = "(hbnb) "
     file_path = "file.json"
     storage = FileStorage()
@@ -25,6 +26,7 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         """Do nothing on empty input line."""
         pass
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

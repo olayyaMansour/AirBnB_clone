@@ -3,9 +3,10 @@
 
 from models.base_model import BaseModel
 
+
 class User(BaseModel):
     """User class for AirBnB project."""
-    
+
     def __init__(self, *args, **kwargs):
         """Initialize the User."""
         super().__init__(*args, **kwargs)
