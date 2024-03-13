@@ -6,6 +6,7 @@ Unit tests for BaseModel class
 import unittest
 from models.base_model import BaseModel
 
+
 class TestBaseModel(unittest.TestCase):
     """
     Test cases for the BaseModel class
@@ -27,9 +28,11 @@ class TestBaseModel(unittest.TestCase):
         my_model = BaseModel()
         my_model.name = "My First Model"
         my_model.my_number = 89
-        expected_output = "[BaseModel] ({}) {'my_number': 89, 'name': 'My First Model', "\
+        expected_output = "[BaseModel]({}) {'my_number': 89,
+                                            'name': 'My First Model', "\
                           "'updated_at': datetime.datetime, 'id': '{}', "\
-                          "'created_at': datetime.datetime}".format(my_model.id, my_model.id)
+                          "'created_at': datetime.datetime}"
+        .format(my_model.id, my_model.id)
         self.assertEqual(str(my_model), expected_output)
 
     def test_save(self):
