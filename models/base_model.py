@@ -2,7 +2,8 @@
 """
 This module contains the BaseModel class
 """
-import uuid
+import models
+from uuid import uuid4
 from datetime import datetime
 
 
