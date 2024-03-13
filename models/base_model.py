@@ -3,7 +3,7 @@
 This module contains the BaseModel class
 """
 import models
-from uuid import uuid4
+import uuid
 from datetime import datetime
 
 
