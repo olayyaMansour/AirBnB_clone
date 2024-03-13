@@ -30,6 +30,20 @@ class HBNBCommand(cmd.Cmd):
         """
         pass
 
+    def precmd(self, line):
+        """
+        Check for empty line + spaces
+        """
+        if not line.strip():
+            return "do_nothing"
+        return line
+
+    def do_nothing(self, line):
+        """
+        Does nothing when an empty line with spaces is entered
+        """
+        pass
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
