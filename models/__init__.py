@@ -1,7 +1,6 @@
-#!/usr/bin/python3
-"""Initialize models directory"""
-from models.engine.file_storage import CustomFileStorage
+"""Initialize models package"""
+from models.engine.file_storage import FileStorage
 
 
-custom_storage = CustomFileStorage()
-custom_storage.reload()
+storage = FileStorage()
+storage.reload()

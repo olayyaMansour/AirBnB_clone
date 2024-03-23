@@ -1,12 +1,12 @@
 #!/usr/bin/python3
 """Defines the BaseModel class."""
-import models
 from uuid import uuid4
 from datetime import datetime
+from models import storage
 
 
 class BaseModel:
-    """Represents the BaseModel of the CustomProject."""
+    """Represents the BaseModel for all models in the project."""
 
     def __init__(self, *args, **kwargs):
         """Initialize a new BaseModel.
@@ -15,33 +15,36 @@ class BaseModel:
             *args (any): Unused.
             **kwargs (dict): Key/value pairs of attributes.
         """
-        time_format = "%Y-%m-%dT%H:%M:%S.%f"
-        self.id = str(uuid4())
-        self.created_at = datetime.today()
-        self.updated_at = datetime.today()
-        if len(kwargs) != 0:
-            for key, value in kwargs.items():
-                if key == "created_at" or key == "updated_at":
-                    self.__dict__[key] = datetime.strptime(value, time_format)
-                else:
-                    self.__dict__[key] = value
+        if not kwargs:
+            self.id = str(uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
+            storage.new(self)
         else:
-            models.storage.new(self)
+            self.__create_from_kwargs(**kwargs)
 
     def save(self):
         """Update updated_at with the current datetime."""
-        self.updated_at = datetime.today()
-        models.storage.save()
+        self.updated_at = datetime.now()
+        storage.save()
 
     def to_dict(self):
-        """Return the dict of the new instance."""
-        result_dict = self.__dict__.copy()
-        result_dict["created_at"] = self.created_at.isoformat()
-        result_dict["updated_at"] = self.updated_at.isoformat()
-        result_dict["__class__"] = self.__class__.__name__
-        return result_dict
+        """Return the dict representation of the instance."""
+        raw_dict = self.__dict__.copy()
+        raw_dict['created_at'] = self.created_at.isoformat()
+        raw_dict['updated_at'] = self.updated_at.isoformat()
+        raw_dict['__class__'] = type(self).__name__
+        return raw_dict
 
     def __str__(self):
-        """Return the print representation of the new instance."""
-        class_name = self.__class__.__name__
+        """Return the string representation of the instance."""
+        class_name = type(self).__name__
         return "[{}] ({}) {}".format(class_name, self.id, self.__dict__)
+
+    def __create_from_kwargs(self, **kwargs):
+        """Create an instance from dictionary kwargs"""
+        for key, val in kwargs.items():
+            if key != '__class__':
+                if key == 'created_at' or key == 'updated_at':
+                    val = datetime.fromisoformat(val)
+                setattr(self, key, val)
